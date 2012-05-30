@@ -1,7 +1,9 @@
-class svn ($ensure = "latest") {
+class svn ($ensure = 'latest', $package = 'subversion') {
 
-    package { subversion:
-        ensure => $ensure
+    if !defined(Package["$package"]) {
+        package { "$package":
+            ensure => "$ensure"
+        }
     }
 
 }
