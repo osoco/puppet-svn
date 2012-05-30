@@ -8,7 +8,7 @@ class svn ($ensure = 'latest', $package = 'subversion') {
 
 }
 
-define svn::checkout($username,$password,$url,$path,$trust-cert='true') {
+define svn::checkout($username,$password,$url,$path,$trust-cert='true',$timeout=60) {
 
     if $trust-cert == 'true' {
         $trust-server-cert-option = "--trust-server-cert"
@@ -17,6 +17,7 @@ define svn::checkout($username,$password,$url,$path,$trust-cert='true') {
     }
 
     exec {"svn-co-$name":
-        command => "/usr/bin/svn --username $username --password $password --non-interactive $trust-server-cert-option checkout $url $path"
+        command => "/usr/bin/svn --username $username --password $password --non-interactive $trust-server-cert-option checkout $url $path",
+        timeout => $timeout
     }
 }
