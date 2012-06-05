@@ -33,7 +33,7 @@ define svn::update($path, $username, $password, $trust-cert='true', $timeout=60)
 
     exec {"svn-up-$name":
         command => "/usr/bin/svn --username $username --password $password --non-interactive $trust-server-cert-option up",
-        cwd => "$path"
+        cwd => "$path",
         timeout => $timeout,
         onlyif => "test -d $path/.svn"
     }
